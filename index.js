@@ -14,7 +14,7 @@ const handlerFunction = async (event, context, callback) => {
     await docClient.put(options).promise();
     const result = {
       statusCode: 201,
-      body: JSON.stringify(options.Item),
+      body: options.Item,
       headers: { 'content-type': 'application/json' }
     };
     callback(null, result);
