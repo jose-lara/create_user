@@ -1,0 +1,59 @@
+{
+  "info": {
+    "_postman_id": "f9d84dd5-5e0e-4a38-bcee-580453df65a2",
+    "name": "Talk",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Create user",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "id": "482aa45b-8538-4680-a8ed-e8dff204f289",
+            "exec": [
+              "var jsonData = JSON.parse(responseBody);",
+              "",
+              "pm.test(\"Status code is 201\", function () {",
+              "    pm.response.to.have.status(201);",
+              "    pm.test(\"has authorizationToken\", function(){",
+              "        postman.setEnvironmentVariable(\"userId\", jsonData.userId);",
+              "    })",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "name": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"userName\": \"Fran\",\n    \"userSurname\": \"Herrero\",\n    \"role\": \"admin\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://eucyibnf59.execute-api.eu-west-2.amazonaws.com/Stage/api/create-user",
+          "protocol": "https",
+          "host": ["eucyibnf59", "execute-api", "eu-west-2", "amazonaws", "com"],
+          "path": ["Stage", "api", "create-user"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "protocolProfileBehavior": {}
+}
