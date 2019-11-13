@@ -39,7 +39,7 @@ Resources:
           Properties:
             Path: /api/create-user
             Method: post
-  EndorsementTable:
+  UserTable:
     Type: AWS::DynamoDB::Table
     Properties:
       TableName: User
