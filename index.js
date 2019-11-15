@@ -9,7 +9,7 @@ const handlerFunction = async (event, context, callback) => {
   try {
     const options = {
       TableName: 'User',
-      Item: { userId, active: true, userName, userSurname, role }
+      Item: { userId, active: true, userName, userSurname, role, createdAt: Date.now() }
     };
     await docClient.put(options).promise();
     const result = {
