@@ -3,13 +3,22 @@
 var fs = require('fs');
 var path = require('path');
 
-exports.get = function(event, context, callback) {
-  var contents = fs.readFileSync(`public${path.sep}index.html`);
-  var result = {
-    statusCode: 200,
-    body: contents.toString(),
-    headers: {'content-type': 'text/html'}
-  };
-
-  callback(null, result);
+const handlerFunction = async (event, context, callback) => {
+  const { userName, userSurname, role } = typeof event.body === 'string' ? JSON.parse(event.body) : event.body;
+  const userId = uuidv1();
+  try {
+    const options = {
+      TableName: 'User',
+      Item: { userId, active: true, userName, userSurname, role, createdAt: Date.now() }
+    };
+    await docClient.put(options).promise();
+    const result = {
+      statusCode: 201,
+      body: options.Item,
+      headers: { 'content-type': 'application/json' }
+    };
+    callback(null, result);
+  } catch (e) {
+    return context.fail(e);
+  }
 };
